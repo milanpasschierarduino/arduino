@@ -10,7 +10,7 @@ router.get('/test', function(req, res, next) {
   
   console.log(req.query.naam);
   
-  res.send(req.query.naam + ' ontvangen van arduino');
+  res.send(req.query.naam + 'ontvangen van arduino');
   
 });
 
