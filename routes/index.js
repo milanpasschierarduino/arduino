@@ -8,9 +8,9 @@ router.get('/', function(req, res, next) {
 
 router.get('/test', function(req, res, next) {
   
-  console.log(req.query)
+  console.log(req.query.naam);
   
-  res.send('ontvangen')
+  res.send(req.query.naam + ' ontvangen van arduino');
   
 });
 
