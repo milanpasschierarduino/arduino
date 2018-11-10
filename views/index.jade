@@ -22,6 +22,7 @@ block content
           h3 Nieuwe sessie starten voor vandaag
           div(class="alert alert-primary session-alert" role="alert") Geen Arduino gevonden.
           .session-start
+          small(class="text-muted") Maak met de Arduino van Milan Passchier verbinding met deze applicatie om een nieuwe sessie te kunnen starten.
           
         .content-column
           h3 Oude sessies
@@ -40,7 +41,7 @@ block content
           } else {
             setTimeout(function(){
               find_session();
-            }, 10000);
+            }, 5000);
           }
           
         }
