@@ -43,9 +43,9 @@ router.get('/session/find', function(req, res, next) {
   var now = new Date();
   var date = dateFormat(now, "dd-mm-yyyy");
   
-  sessions.find({ date: date, status: "inactive" }).then(function (doc) {
+  sessions.findOne({ date: date, status: "inactive" }).then(function (doc) {
     
-    res.send(doc);
+    res.json(doc);
     
   })
   

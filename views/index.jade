@@ -20,15 +20,9 @@ block content
         h2 Sessies
         .content-column
           h3 Nieuwe sessie starten voor vandaag
-          div(class="alert alert-primary" role="alert") Geen Arduino gevonden.
-          div(class="card" style="width: 18rem;")
-            img(class="card-img-top" src="https://cdn.arduino.cc/homepage/static/media/arduino-UNO.bcc69bde.png" alt="Card image cap")
-            div(class="card-body")
-              h4(class="card-title") Arduino van Milan Passchier
-              h5(class="card-subtitle mb-2 text-muted") Card subtitle
-              p(class="card-text") Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              a(href="#" class="btn btn-primary") Start sessie voor
-          small(class="text-muted") Maak met de Arduino van Milan Passchier verbinding met deze applicatie om een nieuwe sessie te kunnen starten.
+          div(class="alert alert-primary session-alert" role="alert") Geen Arduino gevonden.
+          .session-start
+          
         .content-column
           h3 Oude sessies
           p geen content
@@ -39,12 +33,15 @@ block content
         type: "get",
         url: "/session/find",
         success:function(data) {
-                
-          console.log(data);
-                
-          setTimeout(function(){
-            find_session();
-          }, 10000);
+          
+          if (data) {
+            $(".session-alert").hide();
+            $(".session-start").append('<div style="width: 18rem;" class="card"><img src="https://cdn.arduino.cc/homepage/static/media/arduino-UNO.bcc69bde.png" alt="Card image cap" class="card-img-top"><div class="card-body"><h4 class="card-title">Arduino van Milan Passchier</h4><h5 class="card-subtitle mb-2 text-muted">' + data.id + '</h5><a href="#" class="btn btn-primary">Start sessie voor ' + data.date + '</a></div></div>');
+          } else {
+            setTimeout(function(){
+              find_session();
+            }, 10000);
+          }
           
         }
       });
