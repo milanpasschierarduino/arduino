@@ -13,11 +13,41 @@ router.get('/', function(req, res, next) {
 router.get('/session/new', function(req, res, next) {
   
   var now = new Date();
-  var date = dateFormat(now, "dd, mm, yyyy");
-  var id = randomstring.generate(10);
+  var date = dateFormat(now, "dd-mm-yyyy");
   
-  sessions.insert({ status: 'inactive', date: date, id: id });
-  res.send('ontvangen');
+  sessions.findOne({ date: date }).then(function (doc) {
+    
+    if (doc) {
+      
+      if (doc.status === "inactive") {
+        res.send('Sessie is niet gestart. Start de sessie op de applicatie.');
+      } else {
+        res.send('Sessie is gestart.');
+      }
+      
+    } else {
+  
+      var id = randomstring.generate(10);
+
+      sessions.insert({ status: 'inactive', date: date, id: id });
+      res.send('Arduino van Milan Passchier heeft verbinding gemaakt. Start de sessie op de applicatie.');
+      
+    }
+    
+  })
+  
+});
+
+router.get('/session/find', function(req, res, next) {
+  
+  var now = new Date();
+  var date = dateFormat(now, "dd-mm-yyyy");
+  
+  sessions.find({ date: date, status: "inactive" }).then(function (doc) {
+    
+    res.send(doc);
+    
+  })
   
 });
 

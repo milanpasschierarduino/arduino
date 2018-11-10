@@ -21,7 +21,33 @@ block content
         .content-column
           h3 Nieuwe sessie starten voor vandaag
           div(class="alert alert-primary" role="alert") Geen Arduino gevonden.
+          div(class="card" style="width: 18rem;")
+            img(class="card-img-top" src="https://cdn.arduino.cc/homepage/static/media/arduino-UNO.bcc69bde.png" alt="Card image cap")
+            div(class="card-body")
+              h4(class="card-title") Arduino van Milan Passchier
+              h5(class="card-subtitle mb-2 text-muted") Card subtitle
+              p(class="card-text") Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              a(href="#" class="btn btn-primary") Start sessie voor
           small(class="text-muted") Maak met de Arduino van Milan Passchier verbinding met deze applicatie om een nieuwe sessie te kunnen starten.
         .content-column
           h3 Oude sessies
           p geen content
+          
+  script.
+    function find_session() {
+      $.ajax({
+        type: "get",
+        url: "/session/find",
+        success:function(data) {
+                
+          console.log(data);
+                
+          setTimeout(function(){
+            find_session();
+          }, 10000);
+          
+        }
+      });
+    }
+    
+    find_session();
