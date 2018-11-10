@@ -1,16 +1,19 @@
 var express = require('express');
 var router = express.Router();
+const db = require('monk')('mongodb://milanarduino:detering1@ds159293.mlab.com:59293/milanarduino')
+const sessions = db.get('sessions')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/test', function(req, res, next) {
+router.post('/session/new', function(req, res, next) {
   
-  console.log(req.query.naam);
+  console.log(req.body);
+  sessions.insert({ name: 'Tobi' });
   
-  res.send(req.query.naam + 'ontvangen van arduino');
+  res.send('ontvangen');
   
 });
 

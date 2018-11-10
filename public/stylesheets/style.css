@@ -1,8 +1,29 @@
+ @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #333333;
 }
+
+h1              { font-size: 2em; }
+h2              { font-size: 1.5em; }
+h3              { font-size: 1.17em; }
+h5              { font-size: .83em; }
+h6              { font-size: .75em; }
 
 a {
   color: #00B7FF;
+}
+
+.content {
+  padding: 50px 0px;
+}
+
+.content-column:first-of-type {
+  margin-top: 0px;
+}
+
+.content-column {
+  margin-top: 25px;
 }
