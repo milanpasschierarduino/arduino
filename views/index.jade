@@ -2,7 +2,7 @@ extends layout
 
 block content
 
-  nav(class="navbar navbar-expand-lg navbar-light bg-light")
+  nav(class="navbar navbar-expand-lg navbar-dark bg-dark")
     a(class="navbar-brand" href="#") Alcohol
     button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
       span(class="navbar-toggler-icon")
@@ -20,17 +20,16 @@ block content
         h2 Sessies
         .content-column
           .row
-            .col-12.col-md-6
+            .col-12.col-md-6.column
               h3 Nieuwe sessie starten voor vandaag
               .session-alerts
                 div(class="alert alert-primary session-alert" role="alert") Geen Arduino gevonden.
               .session-start
               small(class="text-muted") Maak met de Arduino van Milan Passchier verbinding met deze applicatie om een nieuwe sessie te kunnen starten.
-            .col-12.col-md-6
+            .col-12.col-md-6.column
               h3 Huidige sessie 
         .content-column
           h3 Oude sessies
-          p geen content
           
   script.
     function find_session() {
