@@ -19,11 +19,15 @@ block content
       .sessions
         h2 Sessies
         .content-column
-          h3 Nieuwe sessie starten voor vandaag
-          div(class="alert alert-primary session-alert" role="alert") Geen Arduino gevonden.
-          .session-start
-          small(class="text-muted") Maak met de Arduino van Milan Passchier verbinding met deze applicatie om een nieuwe sessie te kunnen starten.
-          
+          .row
+            .col-12.col-md-6
+              h3 Nieuwe sessie starten voor vandaag
+              .session-alerts
+                div(class="alert alert-primary session-alert" role="alert") Geen Arduino gevonden.
+              .session-start
+              small(class="text-muted") Maak met de Arduino van Milan Passchier verbinding met deze applicatie om een nieuwe sessie te kunnen starten.
+            .col-12.col-md-6
+              h3 Huidige sessie 
         .content-column
           h3 Oude sessies
           p geen content
@@ -33,11 +37,38 @@ block content
       $.ajax({
         type: "get",
         url: "/session/find",
-        success:function(data) {
+        success: function(data) {
           
           if (data) {
+          
             $(".session-alert").hide();
-            $(".session-start").append('<div style="width: 18rem;" class="card"><img src="https://cdn.arduino.cc/homepage/static/media/arduino-UNO.bcc69bde.png" alt="Card image cap" class="card-img-top"><div class="card-body"><h4 class="card-title">Arduino van Milan Passchier</h4><h5 class="card-subtitle mb-2 text-muted">' + data.id + '</h5><a href="#" class="btn btn-primary">Start sessie voor ' + data.date + '</a></div></div>');
+          
+            if (data.status === "inactive") {
+            
+              $(".session-start").append('<div style="width: 18rem;" class="card"><img src="https://cdn.arduino.cc/homepage/static/media/arduino-UNO.bcc69bde.png" alt="Arduino van Milan Passchier" class="card-img-top"><div class="card-body"><h4 class="card-title">Arduino van Milan Passchier</h4><h5 class="card-subtitle mb-2 text-muted">Sessie ' + data.id + ' is nog niet gestart.</h5><button type="button" class="btn btn-primary session-start-btn">Start sessie voor ' + data.date + '</button></div></div>');
+              $(".session-start-btn").click(function() {
+                $.ajax({
+                  type: "get",
+                  url: "/session/start",
+                  data: {
+                    date: data.date,
+                    id: data.id, 
+                  },
+                  success: function(data) {
+
+                    $(".session-start").hide();
+                    $(".session-alerts").append('<div role="alert" class="alert alert-success session-success">Sessie ' + data.id + ' is succesvol gestart voor vandaag ' + data.date + '.</div>');
+
+                  }
+                });
+              });
+            
+            } else {
+            
+              $(".session-alerts").append('<div role="alert" class="alert alert-success session-success">Sessie ' + data.id + ' is succesvol gestart voor vandaag ' + data.date + '.</div>');
+            
+            }
+            
           } else {
             setTimeout(function(){
               find_session();
